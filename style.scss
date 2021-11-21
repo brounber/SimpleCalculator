@@ -1,8 +1,12 @@
+
+/*==================== Overall Margin ====================*/
 *{
   padding: 0;
   margin: 0;
   box-sizing: border-box;
 }
+
+/*==================== Font ====================*/
 html{
   font-family: 'Montserrat', sans-serif;
 }
@@ -32,6 +36,7 @@ section{
   background-color: #435a74;
 }
 
+/*==================== Button ====================*/
 .all-buttons {
   color: whitesmoke;
   display: grid;
