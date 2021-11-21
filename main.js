@@ -1,46 +1,151 @@
-/*==================== Overall Constant Created ====================*/
+/*==================== querySelector created  ====================*/
 
-const displayMain = document.querySelector('.display__main');
-const displayResult = document.querySelector('.display__results');
-const numbers = document.querySelectorAll('.button__number');
-const operators = document.querySelectorAll('.button__operation');
-const equals = document.querySelector('.button__equal');
-const clear = document.querySelector('.button__last-entity-clear');
+const DisplayMain = document.querySelector('.display__main');
+const DisplayResults = document.querySelector('.display__results');
+const allNumbers = document.querySelectorAll('.button__number');
+const allOperations = document.querySelectorAll('.button__operation');
+const equalOperations = document.querySelector('.button__equal');
+const clearAll = document.querySelector('.button__last-entity-clear');
 
+/*==================== variables created  ====================*/
 
-/*==================== Changeable Veriable ====================*/
 let disMain = '';
-let disResult = null;
-let prevOperation = '';
-let haveDot = false; 
+let disSec = '';
+let result = null;
+let lastOperation = '';
+let haveDot = false;
 
-// created an eventlistener for the numbers to be displayed and also made a rule for the "dot"
-numbers.forEach(number => { 
-  number.addEventListener('click', (e) => { 
-    if (e.target.innerText === '.' && !haveDot) {
+/*==================== 'dot' rule created  ====================*/
+
+allNumbers.forEach( number => {
+  number.addEventListener('click', (e)=>{
+    if(e.target.innerText === '.' && !haveDot){
       haveDot = true;
-    } else if (e.target.innerText === '.' && haveDot) {
+    } else if (e.target.innerText === '.' && haveDot){
       return;
     }
-    disMain += e.target.innerText;
-    displayMain.innerText = disMain;
-  })
-});
-
-//created an event listener for the operations buttons, making a rule where the operation symbols will not show if there isn't a number already entered 
-
-
-operators.forEach( operations => {
-  operations.addEventListener('click', (e) => {
-    if (!disMain) return; 
-    haveDot = false;
-    const operationName = e.target.innerText;
-    if(disMain && prevOperation) {
-      mathOperations();
-    } else {
-      result = parseFloat(disMain);
-    }
-    console.log(results)
+    /*==================== input on the screen  ====================*/
+    disSec += e.target.innerText;
+    DisplayResults.innerText = disSec;
   })
 })
 
+/*==================== operations buttons functionality created  ====================*/
+
+allOperations.forEach( operation => {
+  operation.addEventListener('click', (e)=> {
+    if (!disSec) return;
+    haveDot = false;
+    const operationName = e.target.innerText;
+    if (disMain && disSec && lastOperation){
+      mathOperation();
+
+    }else{
+      result = parseFloat(disSec);
+    }
+    clearVar(operationName);
+    lastOperation = operationName;
+    console.log(result)
+  })
+});
+function clearVar(name = ''){
+  disMain += disSec + ' ' + name + ' ';
+  DisplayMain.innerText = disMain;
+  DisplayResults.innerText = '';
+  disSec = '';
+}
+
+
+/*==================== Mathoperations  created  ====================*/
+
+function mathOperation() {
+  if (lastOperation === 'x') {
+    result = parseFloat(result) * parseFloat(disSec);
+  } else if (lastOperation === '+') {
+    result = parseFloat(result) + parseFloat(disSec);
+  } else if (lastOperation === '-') {
+    result = parseFloat(result) - parseFloat(disSec);
+  } else if (lastOperation === '/') {
+    result = parseFloat(result) / parseFloat(disSec);
+  }else if( lastOperation === '%'){
+    result = parseFloat(result) % parseFloat(disSec);
+  }
+}
+/* square root was removed as it was giving errors and could not understadnw hy it owcoiuld not understad the matho*/
+
+/*==================== equal function created  ====================*/
+
+
+equalOperations.addEventListener('click', ()=> {
+  if (!disSec || !disMain) return;
+  haveDot = false;
+  mathOperation();
+  clearVar();
+  DisplayResults.innerText = result;
+  disSec = result;
+  disMain = '';
+})
+
+/*====================clear functioncreated  ====================*/
+
+clearAll.addEventListener('click', ()=>{
+  disMain = '';
+  disSec = '';
+  DisplayMain.innerText ='';
+  DisplayResults.innerText ='';
+  result = '';
+});
+
+
+/*==================== event listener for keys entered ====================*/
+
+window.addEventListener('keydown', (e)=>{
+  if(
+    e.key === '0' ||
+    e.key === '1' || 
+    e.key === '2' ||
+    e.key === '3' ||
+    e.key === '4' ||
+    e.key === '5' ||
+    e.key === '6' ||
+    e.key === '7' ||
+    e.key === '8' ||
+    e.key === '9' ||
+    e.key === '.' 
+  ){
+    clickButtonEl(e.key)
+
+  }else if(
+    e.key === '+' ||
+    e.key === '-' ||
+    e.key === '/' ||
+    e.key === '%' 
+  ){
+    clickOperation(e.key);
+  }
+  else if(e.key === '*'){
+    clickOperation('x')
+  } else if( e.key == "Enter" || e.key === '='){
+    clickEqual();
+  }
+
+})
+function clickButtonEl(key) {
+  allNumbers.forEach(button => {
+    if (button.innerText === key) {
+      button.click();
+    }
+  })
+}
+function clickOperation(key){
+  allOperations.forEach( operation => {
+    if(operation.innerText === key){
+      operation.click()
+    }
+  })
+}
+
+/*==================== finaly operations   ====================*/
+function clickEqual(){
+  equalOperations.click();
+}
