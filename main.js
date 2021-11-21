@@ -32,7 +32,7 @@ numbers.forEach(number => {
 
 operators.forEach( operations => {
   operations.addEventListener('click', (e) => {
-    if (!disMain) results; 
+    if (!disMain) return; 
     haveDot = false;
     const operationName = e.target.innerText;
     if(disMain && prevOperation) {
