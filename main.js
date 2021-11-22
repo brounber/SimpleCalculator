@@ -28,9 +28,9 @@ allNumbers.forEach( number => {
     disSec += e.target.innerText;
     DisplayResults.innerText = disSec;
   })
-})
+});
 
-/*==================== operations buttons functionality created  ====================*/
+/*==================== operations buttons functionality and clear created  ====================*/
 
 allOperations.forEach( operation => {
   operation.addEventListener('click', (e)=> {
@@ -48,12 +48,14 @@ allOperations.forEach( operation => {
     console.log(result)
   })
 });
+
+// from the internet 
 function clearVar(name = ''){
   disMain += disSec + ' ' + name + ' ';
   DisplayMain.innerText = disMain;
   DisplayResults.innerText = '';
   disSec = '';
-}
+};
 
 
 /*==================== Mathoperations  created  ====================*/
@@ -70,21 +72,21 @@ function mathOperation() {
   }else if( lastOperation === '%'){
     result = parseFloat(result) % parseFloat(disSec);
   }
-}
+};
 /* square root was removed as it was giving errors and could not understadnw hy it owcoiuld not understad the matho*/
 
 /*==================== equal function created  ====================*/
 
 
 equalOperations.addEventListener('click', ()=> {
-  if (!disSec || !disMain) return;
+  if (!disSec || !disMain) ;
   haveDot = false;
   mathOperation();
   clearVar();
   DisplayResults.innerText = result;
   disSec = result;
   disMain = '';
-})
+});
 
 /*====================clear functioncreated  ====================*/
 
@@ -129,23 +131,23 @@ window.addEventListener('keydown', (e)=>{
     clickEqual();
   }
 
-})
+});
 function clickButtonEl(key) {
   allNumbers.forEach(button => {
     if (button.innerText === key) {
       button.click();
     }
   })
-}
+};
 function clickOperation(key){
   allOperations.forEach( operation => {
     if(operation.innerText === key){
       operation.click()
     }
   })
-}
+};
 
 /*==================== finaly operations   ====================*/
 function clickEqual(){
   equalOperations.click();
-}
+};
