@@ -30,13 +30,15 @@ allNumbers.forEach( number => {
   })
 });
 
-/*==================== operations buttons functionality and clear created  ====================*/
+/*==================== operations buttons functionality and clear created to make sure there is a number there first ====================*/
 
 allOperations.forEach( operation => {
   operation.addEventListener('click', (e)=> {
-    if (!disSec) return;
-    haveDot = false;
-    const operationName = e.target.innerText;
+    if (!disSec) {
+      return;
+      haveDot = false;
+      const operationName = e.target.innerText;
+    }
     if (disMain && disSec && lastOperation){
       mathOperation();
 
@@ -49,7 +51,7 @@ allOperations.forEach( operation => {
   })
 });
 
-// from the internet 
+// from the internet to move from dismain to discex values
 function clearVar(name = ''){
   disMain += disSec + ' ' + name + ' ';
   DisplayMain.innerText = disMain;
